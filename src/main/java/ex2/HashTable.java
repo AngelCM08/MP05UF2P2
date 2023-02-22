@@ -28,7 +28,49 @@ public class HashTable {
      * @param value El propi element que es vol afegir.
      */
     public void put(String key, String value) {
-        boolean surt = false;
+        int hash = getHash(key);
+        final HashEntry hashEntry = new HashEntry(key, value);
+
+        if(entries[hash] == null) { // Si no hi ha colisions s'emmagatzema sense problemes.
+            entries[hash] = hashEntry;
+        }else {
+            HashEntry temp = entries[hash];
+
+            // Si el primer valor coincideix a la key amb la introduïda es substitueix el value
+            if(temp.key.equals(key)){
+                entries[hash].value = hashEntry.value;
+                return;
+            }
+
+            // S'iteren els elements que puguin haver llistats a partir de temp per
+            // cercar coincidències de claus, si es troba es canvia el seu valor.
+            while(temp.next != null){
+                if(temp.key.equals(key)){
+                    temp.value = hashEntry.value;
+                    return;
+                }else{
+                    temp = temp.next;
+                }
+            }
+
+            // En cas de no haver trobat cap clau que coincideixi i ens trobem a
+            // l'últim valor, comprovem si hi ha una coincidència de claus en
+            // aquest o afegim la nova entrada com a next d'aquesta última.
+            if(temp.key.equals(key)){
+                temp.value = hashEntry.value;
+            }else{
+                temp.next = hashEntry;
+                hashEntry.prev = temp;
+            }
+        }
+    }
+
+    /* Aquesta funció no tenia en compte que quan hi ha col·lisions,
+          hi pot haver casos d'actualitzacions d'un element.
+          Simplement si trobava una col·lisió, movia l'element temp
+          fins al darrer element i afegia la nova entrada al final.
+
+    public void put(String key, String value) {
         int hash = getHash(key);
         final HashEntry hashEntry = new HashEntry(key, value);
 
@@ -36,25 +78,16 @@ public class HashTable {
             entries[hash] = hashEntry;
         }else {
             HashEntry temp = entries[hash];
-
-            /* while(temp.next != null)
-                temp = temp.next;*/
-            if(temp.key.equals(key)){
-                temp.value = value;
-                return;
-            }
-
-            while(temp.next != null){
-                if(!temp.key.equals(key)){
-                    temp = temp.next;
-                }else if(){
-                }
-            }
+            while(temp.next != null)
+                temp = temp.next;
 
             temp.next = hashEntry;
             hashEntry.prev = temp;
         }
     }
+    */
+
+
 
     /**
      * Permet recuperar un element dins la taula.
