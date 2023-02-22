@@ -28,16 +28,28 @@ public class HashTable {
      * @param value El propi element que es vol afegir.
      */
     public void put(String key, String value) {
+        boolean surt = false;
         int hash = getHash(key);
         final HashEntry hashEntry = new HashEntry(key, value);
 
         if(entries[hash] == null) {
             entries[hash] = hashEntry;
-        }
-        else {
+        }else {
             HashEntry temp = entries[hash];
-            while(temp.next != null)
-                temp = temp.next;
+
+            /* while(temp.next != null)
+                temp = temp.next;*/
+            if(temp.key.equals(key)){
+                temp.value = value;
+                return;
+            }
+
+            while(temp.next != null){
+                if(!temp.key.equals(key)){
+                    temp = temp.next;
+                }else if(){
+                }
+            }
 
             temp.next = hashEntry;
             hashEntry.prev = temp;
