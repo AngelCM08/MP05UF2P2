@@ -3,6 +3,9 @@ package ex2;
 import org.junit.jupiter.api.Assertions;
 
 class HashTableTest {
+
+    // TESTS DE LA FUNCIÓ put()
+
     // Inserir un element que no col·lisiona dins una taula vuida (sense elements).
     @org.junit.jupiter.api.Test
     void putTaulaBuida() {
@@ -61,7 +64,7 @@ class HashTableTest {
         hashTable.put("Clau2", "Element6");
         Assertions.assertEquals( "\n" +
                 " bucket[5] = [Clau2, Element6] -> [5, Element3] -> [05, Element4]", hashTable.toString());
-        /* ERROR AL CODI: Un cop executat aquest Assetion m'he adonat que hi ha un error al codi de la funció put(), ja que hashTable s'ha creat de la següent manera en comptes de la esperada:
+        /* ERROR AL CODI: Un cop executat aquest Assertion m'he adonat que hi ha un error al codi de la funció put(), ja que hashTable s'ha creat de la següent manera en comptes de la esperada:
             bucket[4] = [Clau1, Element1]
             bucket[5] = [Clau2, Element2] -> [5, Element3] -> [05, Element4] -> [Clau2, Element5]
            Com es pot veure, en comptes d'actualitzar, s'ha creat un nou element amb la clau repetida "[Clau2, Element5]"
@@ -93,10 +96,154 @@ class HashTableTest {
     }
 
 
-    @org.junit.jupiter.api.Test
-    void get() {
+    // TESTS DE LA FUNCIÓ get()
 
+    // Obtenir un element que no col·lisiona dins una taula buida.
+    @org.junit.jupiter.api.Test
+    void getTaulaBuida() {
+        HashTable hashTable = new HashTable();
+        hashTable.put("Clau1", "Element1");
+        Assertions.assertEquals("Element1", hashTable.get("Clau1"));
     }
+
+    // Obtenir un element que col·lisiona dins una taula (1a posició dins el mateix bucket).
+    @org.junit.jupiter.api.Test
+    void getColisio1aPosicio() {
+        HashTable hashTable = new HashTable();
+        hashTable.put("Clau2", "Element2");
+        hashTable.put("5", "Element3");
+        hashTable.put("05", "Element4");
+        Assertions.assertEquals("Element2", hashTable.get("Clau2"));
+    }
+
+    // Obtenir un element que col·lisiona dins una taula (2a posició dins el mateix bucket).
+    @org.junit.jupiter.api.Test
+    void getColisioPosicioIntermitja() {
+        HashTable hashTable = new HashTable();
+        hashTable.put("Clau2", "Element2");
+        hashTable.put("5", "Element3");
+        hashTable.put("05", "Element4");
+        Assertions.assertEquals("Element3", hashTable.get("5"));
+    }
+
+    // Obtenir un element que col·lisiona dins una taula (3a posició dins el mateix bucket).
+    @org.junit.jupiter.api.Test
+    void getColisioUltimaPosicio() {
+        HashTable hashTable = new HashTable();
+        hashTable.put("Clau2", "Element2");
+        hashTable.put("5", "Element3");
+        hashTable.put("05", "Element4");
+        Assertions.assertEquals("Element4", hashTable.get("05"));
+    }
+
+    // Obtenir un elements que no existeix perquè la seva posició està buida (no hi ha cap element dins el bucket).
+    @org.junit.jupiter.api.Test
+    void getElementNoExisteixAmbPosicioBuida() {
+        HashTable hashTable = new HashTable();
+        Assertions.assertNull(hashTable.get("05"));
+    }
+
+    // Obtenir un elements que no existeix, tot i que la seva posició està ocupada per un altre que no col·lisiona.
+    @org.junit.jupiter.api.Test
+    void getElementNoExisteixAmbPosicioOcupadaNoColisiona() {
+        HashTable hashTable = new HashTable();
+        hashTable.put("Clau2", "Element2");
+        Assertions.assertNull(hashTable.get("05"));
+        /* ERROR AL CODI: Un cop executat aquest Assertion m'he adonat que hi ha un error al codi de la funció get(),
+            en aquest cas específic, la funció no retorna null, intenta retornar el value d'un element que no existeix
+            i llença una exepció. */
+    }
+
+    // Obtenir un elements que no existeix, tot i que la seva posició està ocupada per 3 elements col·lisionats.
+    @org.junit.jupiter.api.Test
+    void getElementNoExisteixAmbPosicioOcupadaSiColisiona() {
+        HashTable hashTable = new HashTable();
+        hashTable.put("Clau2", "Element2");
+        hashTable.put("5", "Element3");
+        hashTable.put("05", "Element4");
+        Assertions.assertNull(hashTable.get("16")); // La clau 16 genera el HashCode 5, igual que els altres 3 elements.
+    }
+
+
+    // TESTS DE LA FUNCIÓ drop()
+
+    // Esborrar un element que no col·lisiona dins una taula.
+    @org.junit.jupiter.api.Test
+    void dropTaula() {
+        HashTable hashTable = new HashTable();
+        hashTable.put("Clau1", "Element1");
+        hashTable.drop("Clau1");
+        Assertions.assertEquals("", hashTable.toString());
+    }
+
+    // Esborrar un element que col·lisiona dins una taula (1a posició dins el mateix bucket).
+    @org.junit.jupiter.api.Test
+    void dropColisio1aPosicio() {
+        HashTable hashTable = new HashTable();
+        hashTable.put("Clau2", "Element6");
+        hashTable.put("5", "Element3");
+        hashTable.put("05", "Element4");
+        hashTable.drop("Clau2");
+        Assertions.assertEquals( "\n" +
+                " bucket[5] = [5, Element3] -> [05, Element4]", hashTable.toString());
+        /* ERROR AL CODI: Un cop executat aquest Assertion m'he adonat que hi ha un error
+            al codi de la funció drop(), en aquest cas específic, la funció elimina tots
+            els elements que colisionen.*/
+    }
+
+    // Esborrar un element que col·lisiona dins una taula (2a posició dins el mateix bucket).
+    @org.junit.jupiter.api.Test
+    void dropColisioPosicioIntermitja() {
+        HashTable hashTable = new HashTable();
+        hashTable.put("Clau2", "Element6");
+        hashTable.put("5", "Element3");
+        hashTable.put("05", "Element4");
+        hashTable.drop("5");
+        Assertions.assertEquals( "\n" +
+                " bucket[5] = [Clau2, Element6] -> [05, Element4]", hashTable.toString());
+    }
+
+    // Esborrar un element que col·lisiona dins una taula (3a posició dins el mateix bucket).
+    @org.junit.jupiter.api.Test
+    void dropColisioUltimaPosicio() {
+        HashTable hashTable = new HashTable();
+        hashTable.put("Clau2", "Element6");
+        hashTable.put("5", "Element3");
+        hashTable.put("05", "Element4");
+        hashTable.drop("05");
+        Assertions.assertEquals( "\n" +
+                " bucket[5] = [Clau2, Element6] -> [5, Element3]", hashTable.toString());
+    }
+
+    // Esborrar un elements que no existeix perquè la seva posició està buida (no hi ha cap element dins el bucket).
+    /*@org.junit.jupiter.api.Test
+    void dropElementNoExisteixAmbPosicioBuida() {
+        HashTable hashTable = new HashTable();
+        Assertions.assertNull(hashTable.get("05"));
+    }
+
+    // Esborrar un elements que no existeix, tot i que la seva posició està ocupada per un altre que no col·lisiona.
+    @org.junit.jupiter.api.Test
+    void dropElementNoExisteixAmbPosicioOcupadaNoColisiona() {
+        HashTable hashTable = new HashTable();
+        hashTable.put("Clau2", "Element2");
+        Assertions.assertNull(hashTable.get("05"));*/
+        /* ERROR AL CODI: Un cop executat aquest Assertion m'he adonat que hi ha un error al codi de la funció get(),
+            en aquest cas específic, la funció no retorna null, intenta retornar el value d'un element que no existeix
+            i llença una exepció. */
+    /*}
+
+    // Esborrar un elements que no existeix, tot i que la seva posició està ocupada per 3 elements col·lisionats.
+    @org.junit.jupiter.api.Test
+    void dropElementNoExisteixAmbPosicioOcupadaSiColisiona() {
+        HashTable hashTable = new HashTable();
+        hashTable.put("Clau2", "Element2");
+        hashTable.put("5", "Element3");
+        hashTable.put("05", "Element4");
+        Assertions.assertNull(hashTable.get("16")); // La clau 16 genera el HashCode 5, igual que els altres 3 elements.
+    }*/
+
+
 
     @org.junit.jupiter.api.Test
     void drop() {

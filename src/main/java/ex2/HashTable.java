@@ -88,7 +88,6 @@ public class HashTable {
     */
 
 
-
     /**
      * Permet recuperar un element dins la taula.
      * @param key La clau de l'element a trobar.
@@ -99,14 +98,21 @@ public class HashTable {
         if(entries[hash] != null) {
             HashEntry temp = entries[hash];
 
-            while( !temp.key.equals(key))
-                temp = temp.next;
+            /* while(!temp.key.equals(key))
+                    temp = temp.next; */
 
+            // He afegit com a condició per avançar al següent element que existeixi
+            // per solucionar l'error, en el cas que es busqui un element que no
+            // existeix, es retornarà null tal i com indica la descripció de la funció.
+            while(!temp.key.equals(key)){
+                if(temp.next != null) temp = temp.next;
+                else return null;
+            }
             return temp.value;
         }
-
         return null;
     }
+
 
     /**
      * Permet esborrar un element dins de la taula.
@@ -115,16 +121,21 @@ public class HashTable {
     public void drop(String key) {
         int hash = getHash(key);
         if(entries[hash] != null) {
-
             HashEntry temp = entries[hash];
-            while( !temp.key.equals(key))
-                temp = temp.next;
-
-            if(temp.prev == null) entries[hash] = null;             //esborrar element únic (no col·lissió)
-            else{
-                if(temp.next != null) temp.next.prev = temp.prev;   //esborrem temp, per tant actualitzem l'anterior al següent
-                temp.prev.next = temp.next;                         //esborrem temp, per tant actualitzem el següent de l'anterior
+            while(!temp.key.equals(key)){ // Si l'element que es busca no existeix surt de la funció.
+                if(temp.next != null) temp = temp.next;
+                else return;
             }
+
+            if(temp.prev == null){ // Per saber si l'element a esborrar és el primer
+                if(temp.next == null) entries[hash] = null; //esborrar element únic (no col·lissió)
+                else { // Si l'element és el primer però colisiona.
+                    temp.next.prev = null;
+                }
+            }else if(temp.next != null) { // Per saber si l'element a esborrar ésta pel mig
+                temp.next.prev = temp.prev;
+                temp.prev.next = temp.next;
+            }else temp.prev.next = null; // Sabem que l'element a esborrar és l'últim
         }
     }
 
@@ -257,7 +268,7 @@ public class HashTable {
 
     public static void main(String[] args) {
         HashTable hashTable = new HashTable();
-        
+
         // Put some key values.
         for(int i=0; i<30; i++) {
             final String key = String.valueOf(i);
