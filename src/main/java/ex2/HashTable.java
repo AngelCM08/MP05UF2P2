@@ -130,12 +130,16 @@ public class HashTable {
             if(temp.prev == null){ // Per saber si l'element a esborrar és el primer
                 if(temp.next == null) entries[hash] = null; //esborrar element únic (no col·lissió)
                 else { // Si l'element és el primer però colisiona.
-                    temp.next.prev = null;
+                    entries[hash] = temp.next;
+                    entries[hash].prev = null;
                 }
             }else if(temp.next != null) { // Per saber si l'element a esborrar ésta pel mig
                 temp.next.prev = temp.prev;
                 temp.prev.next = temp.next;
-            }else temp.prev.next = null; // Sabem que l'element a esborrar és l'últim
+            }else {
+                temp.prev.next = null; // Sabem que l'element a esborrar és l'últim
+                temp.prev = null; // Encara que no és necessari, s'indica per evitar un possible cas d'error.
+            }
         }
     }
 
