@@ -305,13 +305,8 @@ class HashTableTest {
         Assertions.assertEquals(16, hashTable.size());
     }
 
-    @org.junit.jupiter.api.Test
-    void count() {
 
-    }
+    count()
 
-    @org.junit.jupiter.api.Test
-    void size() {
-
-    }
+    size()
 }

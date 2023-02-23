@@ -33,6 +33,8 @@ public class HashTable {
 
         if(entries[hash] == null) { // Si no hi ha colisions s'emmagatzema sense problemes.
             entries[hash] = hashEntry;
+
+            ITEMS++;
         }else {
             HashEntry temp = entries[hash];
 
@@ -61,6 +63,8 @@ public class HashTable {
             }else{
                 temp.next = hashEntry;
                 hashEntry.prev = temp;
+
+                ITEMS++;
             }
         }
     }
@@ -140,8 +144,27 @@ public class HashTable {
                 temp.prev.next = null; // Sabem que l'element a esborrar és l'últim
                 temp.prev = null; // Encara que no és necessari, s'indica per evitar un possible cas d'error.
             }
+            ITEMS--;
         }
     }
+
+    /*
+    public void drop(String key) {
+        int hash = getHash(key);
+        if(entries[hash] != null) {
+
+            original.HashTable.HashEntry temp = entries[hash];
+            while( !temp.key.equals(key))
+                temp = temp.next;
+
+            if(temp.prev == null) entries[hash] = null;             //esborrar element únic (no col·lissió)
+            else{
+                if(temp.next != null) temp.next.prev = temp.prev;   //esborrem temp, per tant actualitzem l'anterior al següent
+                temp.prev.next = temp.next;                         //esborrem temp, per tant actualitzem el següent de l'anterior
+            }
+        }
+    }
+    */
 
     private int getHash(String key) {
         // piggy backing on java string
