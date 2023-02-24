@@ -3,7 +3,7 @@ package ex4;
 public class Enunciat {
 /*
     1. Copia la classe HastTable de l'exercici anterior així com els seus jocs de proves dins aquest package i modifica
-       el codi font perquè el faci servir (canvia "ex2" per "ex3" allà on toqui).
+       el codi font perquè el faci servir (canvia "ex3" per "ex4" allà on toqui).
 
     2. Fes que la taula de hash permeti emmagatzemar altres tipus de dades (object) i no només strings, per això et
        caldrà modificar el tipus de dada que emmagatzema la classe "HashEntry" així com alguns paràmetres dels mètodes
@@ -11,6 +11,8 @@ public class Enunciat {
 
     3. Explica els canvis que has hagut de fer, però NO ESBORRIS CODI, tan sols comenta'l
        perquè es pugui veure el codi antic i el codi nou.
+        Cal canviar a la clase HashEntry que el tipus de dada del parametre value sigui un Object, i modificar quan als
+        parametres d'entrada del métode put() i el constructor de la clase introduïem un String value per un Object value.
 
     4. Adapta els jocs de proves perquè comprovin que els canvis que has fet són correctes, ja que només estan provant
        d'emmagatzemar strings i ara es permet emmagatzemar qualsevol tipus de dada (pots provar amb algunes primitives).

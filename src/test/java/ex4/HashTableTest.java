@@ -1,4 +1,4 @@
-package ex2;
+package ex4;
 
 import org.junit.jupiter.api.Assertions;
 
@@ -312,4 +312,20 @@ class HashTableTest {
     // he vist que dins de put() i drop() no es té en compte el fet d'augmentar o disminuir l'atribut ITEMS que
     // mostra count(), en el cas de size() funciona bé. Però he hagut d'afegir un ITEMS++ en el casos on s'afegeix
     // un nou element amb put() i disminuir en els casos que s'elimini un element existent amb drop().
+
+
+
+    //Com ja s'han provat tots els casos extrems, no cal comprobar-los un altre cop amb un altre tipus d'objecte, per tant, simplement he provat
+    @org.junit.jupiter.api.Test
+    void putGetAmbDiferentsObjectes() {
+        HashTable hashTable = new HashTable();
+
+        hashTable.put("Clau2", 'a');
+        hashTable.put("5", 3);
+        hashTable.put("05", true);
+
+        Assertions.assertEquals('a', hashTable.get("Clau2"));
+        Assertions.assertEquals(3, hashTable.get("5"));
+        Assertions.assertEquals(true, hashTable.get("05"));
+    }
 }
