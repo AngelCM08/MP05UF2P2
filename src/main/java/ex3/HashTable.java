@@ -55,6 +55,50 @@ public class HashTable {
         }
     }
 
+    /*
+    public void put(String key, String value) {
+        int hash = getHash(key);
+        final HashEntry hashEntry = new HashEntry(key, value);
+
+        if(entries[hash] == null) { // Si no hi ha colisions s'emmagatzema sense problemes.
+            entries[hash] = hashEntry;
+
+            ITEMS++;
+        }else {
+            HashEntry temp = entries[hash];
+
+            // Si el primer valor coincideix a la key amb la introduïda es substitueix el value
+            if(temp.key.equals(key)){
+                entries[hash].value = hashEntry.value;
+                return;
+            }
+
+            // S'iteren els elements que puguin haver llistats a partir de temp per
+            // cercar coincidències de claus, si es troba es canvia el seu valor.
+            while(temp.next != null){
+                if(temp.key.equals(key)){
+                    temp.value = hashEntry.value;
+                    return;
+                }else{
+                    temp = temp.next;
+                }
+            }
+
+            // En cas de no haver trobat cap clau que coincideixi i ens trobem a
+            // l'últim valor, comprovem si hi ha una coincidència de claus en
+            // aquest o afegim la nova entrada com a next d'aquesta última.
+            if(temp.key.equals(key)){
+                temp.value = hashEntry.value;
+            }else{
+                temp.next = hashEntry;
+                hashEntry.prev = temp;
+
+                ITEMS++;
+            }
+        }
+    }
+    */
+
 
     /**
      * Permet recuperar un element dins la taula.
@@ -102,6 +146,14 @@ public class HashTable {
             HashEntry temp = getHashEntry(key, hash);
             if (!temp.key.equals(key)) return;
 
+            /*
+            HashTable.HashEntry temp = entries[hash];
+            while(!temp.key.equals(key)){ // Si l'element que es busca no existeix surt de la funció.
+                if(temp.next != null) temp = temp.next;
+                else return;
+            }
+            */
+
             if(temp.prev == null){ // Per saber si l'element a esborrar és el primer
                 if(temp.next == null) entries[hash] = null; //esborrar element únic (no col·lissió)
                 else { // Si l'element és el primer però colisiona.
@@ -118,25 +170,6 @@ public class HashTable {
             ITEMS--;
         }
     }
-
-
-    /*
-    public void drop(String key) {
-        int hash = getHash(key);
-        if(entries[hash] != null) {
-
-            original.HashTable.HashEntry temp = entries[hash];
-            while( !temp.key.equals(key))
-                temp = temp.next;
-
-            if(temp.prev == null) entries[hash] = null;             //esborrar element únic (no col·lissió)
-            else{
-                if(temp.next != null) temp.next.prev = temp.prev;   //esborrem temp, per tant actualitzem l'anterior al següent
-                temp.prev.next = temp.next;                         //esborrem temp, per tant actualitzem el següent de l'anterior
-            }
-        }
-    }
-    */
 
 
     /**
@@ -281,6 +314,23 @@ public class HashTable {
 
         return  foundKeys;
     }
+
+    /*
+    public static void main(String[] args) {
+        HashTable hashTable = new HashTable();
+
+        // Put some key values.
+        for(int i=0; i<30; i++) {
+            final String key = String.valueOf(i);
+            hashTable.put(key, key);
+        }
+
+        // Print the HashTable structure
+        log("****   HashTable  ***");
+        log(hashTable.toString());
+        log("\nValue for key(20) : " + hashTable.get("20") );
+    }
+    */
     protected static void log(String msg) {
         System.out.println(msg);
     }

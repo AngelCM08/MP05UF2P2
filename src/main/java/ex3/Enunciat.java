@@ -7,9 +7,6 @@ public class Enunciat {
 
     2. Aplica-hi el mètode de refacció "extracció de classe" i explica per què creus que ha sigut convenient
        aplicar-los.
-        He extret la funció psvm(String args[]) ja que hauría d'anar a una clase a part d'on es trobi l'implementació
-        de la HashTable en aquest cas. Si volguessím utilitzar HashTable com a llibrería no tindría sentit que existís
-        una funció main dins d'aquesta clase, ja que se suposa que no serà utilitzada mai.
 
 
     3. Aplica-hi el mètode de refacció "extracció de mètode" i explica per què creus que ha sigut convenient

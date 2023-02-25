@@ -16,15 +16,26 @@ public class Enunciat {
     3. SOLUCIONA els errors que hi trobis al codi font de la taula de hash però NO ESBORRIS CODI, tan sols comenta'l 
        perquè es pugui veure el codi antic i el codi nou.
 
+
     4. NO HI APLIQUIS REFACCIÓ!!!
+
 
     5. Grava en vídeo el següent:
        TODO 5.1. Explica què són les proves unitàries i perquè serveixen.
-       5.2. Mostra els teus jocs de proves i explica com els has dissenyat, què pretèns demostrar o comprovar, perquè
+
+
+       TODO 5.2. Mostra els teus jocs de proves i explica com els has dissenyat, què pretèns demostrar o comprovar, perquè
             l'has fet d'aquesta manera i no d'una altra, etc.
-       5.3. Mostra com has sol·lucionat els errors, explicant quin era el problema i com ho has solucionat.
+
+
+       TODO 5.3. Mostra com has sol·lucionat els errors, explicant quin era el problema i com ho has solucionat.
+
+
        TODO 5.4. Explica el concepte de TDD i argumenta si s'ha seguit al llarg d'aquesta pràctica o no.
-       5.5. Recorda que cal fer la demostració del funcionament de les proves dins de GitHub si encara no ho has fet.
+
+
+
+       X 5.5. Recorda que cal fer la demostració del funcionament de les proves dins de GitHub si encara no ho has fet.
 
     IMPORTANT:
         - L'exercici no puntua si dins el vídeo no queda argumentat el treball realitzat.
