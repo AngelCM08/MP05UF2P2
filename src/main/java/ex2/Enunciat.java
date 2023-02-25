@@ -21,17 +21,28 @@ public class Enunciat {
 
 
     5. Grava en vídeo el següent:
-       TODO 5.1. Explica què són les proves unitàries i perquè serveixen.
+       5.1. Explica què són les proves unitàries i perquè serveixen.
+        Les proves unitàries consisteixen en la creació de funcions que comproven el funcionament dels mètodes d'un
+        programa per assegurar el correcte funcionament d'aquests, fent el codi més òptim, segur i robust. Haurien
+        de ser mètodes senzills que fan proves sobre tots els casos extrem que tenen els mètodes, per tant, poden
+        haver moltes proves per un únic mètode, això permet saber amb més facilitat quin és el problema i on es
+        troba. Cal mencionar que tenen algunes desavantatges ja que fan que el temps de desenvolupament d'un
+        programa sigui més llarg i en codis complexos poden significar proves complexes, cosa que es vol evitar.
 
-
-       TODO 5.2. Mostra els teus jocs de proves i explica com els has dissenyat, què pretèns demostrar o comprovar, perquè
+       5.2. Mostra els teus jocs de proves i explica com els has dissenyat, què pretèns demostrar o comprovar, perquè
             l'has fet d'aquesta manera i no d'una altra, etc.
 
 
-       TODO 5.3. Mostra com has sol·lucionat els errors, explicant quin era el problema i com ho has solucionat.
+       5.3. Mostra com has sol·lucionat els errors, explicant quin era el problema i com ho has solucionat.
 
 
-       TODO 5.4. Explica el concepte de TDD i argumenta si s'ha seguit al llarg d'aquesta pràctica o no.
+       5.4. Explica el concepte de TDD i argumenta si s'ha seguit al llarg d'aquesta pràctica o no.
+        El concepte de Test Driven Design(TDD) consisteix en crear un codi a partir de les proves, es a dir, traslladar
+        'l'enunciat' o instruccions d'un hipotètic client en proves d'un codi que encara no existeix, i crear el codi a
+        partir d'aquestes, fent que el codi es desenvolupi des d'un primer moment d'una manera més robusta.
+        Considero que no s'ha seguit al llarg d'aquesta pràctica, ja que hem creat les proves a partir dels métodes
+        que teniem però, a l'hora de solucionar errors que ens donaven les proves, podríem dir que ens hem basat
+        en les proves per millorar i crear métodes que realment fan el que volem que facin basant-nos en les proves.
 
 
 

@@ -84,7 +84,8 @@ class HashTableTest {
         hashTable.put("Clau2", "Element6");
         Assertions.assertEquals( "\n" +
                 " bucket[5] = [Clau2, Element6] -> [5, Element3] -> [05, Element4]", hashTable.toString());
-        /* ERROR AL CODI: Un cop executat aquest Assertion m'he adonat que hi ha un error al codi de la funció put(), ja que hashTable s'ha creat de la següent manera en comptes de la esperada:
+        /* ERROR AL CODI: Un cop executat aquest Assertion m'he adonat que hi ha un error al codi de la funció put(),
+        ja que hashTable s'ha creat de la següent manera en comptes de la esperada:
             bucket[4] = [Clau1, Element1]
             bucket[5] = [Clau2, Element2] -> [5, Element3] -> [05, Element4] -> [Clau2, Element5]
            Com es pot veure, en comptes d'actualitzar, s'ha creat un nou element amb la clau repetida "[Clau2, Element5]"
